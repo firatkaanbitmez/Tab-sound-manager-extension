@@ -1,12 +1,16 @@
 # Tab Sound Manager
 
-**Tab Sound Manager** is a Chrome extension that helps you manage the sound settings of your browser tabs with ease. You can mute or unmute individual tabs by clicking on the extension icon.
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Tab%20Sound%20Manager-brightgreen?style=for-the-badge&logo=google-chrome)](https://chrome.google.com/webstore)
+
+**Tab Sound Manager** is a user-friendly Chrome extension that allows you to easily manage the sound settings of your browser tabs. With just one click, you can mute or unmute individual tabs, enhancing your browsing experience.
+
+![Extension Icon](https://raw.githubusercontent.com/firatkaanbitmez/Tab-sound-manager-extension/main/Source/icons/icon_unmuted128.png)
 
 ## Features
 
-- Toggle mute/unmute for the current tab with a single click on the extension icon.
-- Display different icons based on the tab's mute status.
-- Configure default mute settings and other preferences via the options page.
+- **One-Click Mute/Unmute**: Quickly toggle the sound of the current tab by clicking the extension icon.
+- **Visual Status Icons**: The icon changes based on whether the tab is muted or unmuted.
+- **Configurable Preferences**: Adjust default mute settings and other preferences via the options page.
 
 ## Installation
 
@@ -39,6 +43,7 @@ On the options page, you can configure the following settings:
 - **Auto-mute new tabs**: Mute new tabs automatically.
 
 ## File Structure
+
 - `background.js`: Handles the tab mute/unmute functionality and icon updates.
 - `manifest.json`: Defines the extension's metadata and permissions.
 - `options.html`: Provides the options page for configuring settings.
