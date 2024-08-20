@@ -1,45 +1,55 @@
-const tabMuteStatus = {};
+let tabMuteStatus = {};
+
+chrome.storage.local.get(['tabMuteStatus'], (result) => {
+  tabMuteStatus = result.tabMuteStatus || {};
+});
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
-  chrome.tabs.get(activeInfo.tabId, (tab) => {
-    updateIcon(tab);
+  chrome.storage.local.get(['tabMuteStatus'], (result) => {
+    updateIcon(result.tabMuteStatus[activeInfo.tabId], activeInfo.tabId);
   });
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.audible !== undefined || changeInfo.mutedInfo !== undefined) {
-    if (tab.mutedInfo) {
-      tabMuteStatus[tabId] = tab.mutedInfo.muted;
-    }
-    updateIcon(tab);
+  if (changeInfo.mutedInfo || changeInfo.audible) {
+    chrome.storage.local.get(['tabMuteStatus'], (result) => {
+      const currentStatus = result.tabMuteStatus || {};
+      currentStatus[tabId] = tab.mutedInfo.muted;
+      chrome.storage.local.set({tabMuteStatus: currentStatus}, () => {
+        updateIcon(currentStatus[tabId], tabId);
+      });
+    });
   }
 });
 
 chrome.action.onClicked.addListener((tab) => {
-  const isMuted = tabMuteStatus[tab.id] || false;
-
-  chrome.tabs.update(tab.id, { muted: !isMuted }, () => {
-    tabMuteStatus[tab.id] = !isMuted;
-    updateIcon(tab);
+  chrome.storage.local.get(['tabMuteStatus'], (result) => {
+    const currentStatus = result.tabMuteStatus || {};
+    const isMuted = currentStatus[tab.id] || false;
+    chrome.tabs.update(tab.id, {muted: !isMuted}, () => {
+      currentStatus[tab.id] = !isMuted;
+      chrome.storage.local.set({tabMuteStatus: currentStatus}, () => {
+        updateIcon(currentStatus[tab.id], tab.id);
+      });
+    });
   });
 });
 
-function updateIcon(tab) {
-  if (tab.mutedInfo) {
-    const isMuted = tab.mutedInfo.muted;
-    const newIcon = isMuted ? "icons/icon_muted" : "icons/icon_unmuted";
-    const newIconPath = {
-      "16": `${newIcon}16.png`,
-      "48": `${newIcon}48.png`,
-      "128": `${newIcon}128.png`
-    };
+function updateIcon(muted, tabId) {
+  const newIcon = muted ? "icons/icon_muted" : "icons/icon_unmuted";
+  const newIconPath = {
+    "16": `${newIcon}16.png`,
+    "48": `${newIcon}48.png`,
+    "128": `${newIcon}128.png`
+  };
 
-    chrome.action.setIcon({
-      path: newIconPath
-    });
+  chrome.action.setIcon({
+    tabId: tabId,
+    path: newIconPath
+  });
 
-    chrome.action.setTitle({
-      title: isMuted ? "Click to unmute this tab" : "Click to mute this tab"
-    });
-  }
+  chrome.action.setTitle({
+    tabId: tabId,
+    title: muted ? "Click to unmute this tab" : "Click to mute this tab"
+  });
 }

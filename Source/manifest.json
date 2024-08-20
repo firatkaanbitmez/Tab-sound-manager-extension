@@ -1,9 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Tab Sound Manager",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Toggle mute/unmute for the current tab by clicking the extension icon.",
-  "permissions": [],
+  "permissions": [
+    "storage"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -18,6 +20,5 @@
     "16": "icons/icon_unmuted16.png",
     "48": "icons/icon_unmuted48.png",
     "128": "icons/icon_unmuted128.png"
-  },
-  "options_page": "options.html"
+  }
 }
