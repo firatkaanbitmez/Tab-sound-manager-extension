@@ -1,7 +1,9 @@
 let tabMuteStatus = {};
 
 chrome.storage.local.get(['tabMuteStatus'], (result) => {
-  tabMuteStatus = result.tabMuteStatus || {};
+  if (!result.tabMuteStatus) {
+    chrome.storage.local.set({ tabMuteStatus: {} });
+  }
 });
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
