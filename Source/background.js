@@ -1,10 +1,18 @@
 let tabMuteStatus = {};
 
-// Uygulama yüklendiğinde gerekli temizliği yap
+// Uygulama yüklendiğinde veya yeniden başlatıldığında gerekli temizliği yap
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.get(['tabMuteStatus'], (result) => {
+    // Eğer tabMuteStatus bulunmazsa boş bir obje olarak ayarla
     tabMuteStatus = result.tabMuteStatus || {};
     cleanUpTabMuteStatus();
+  });
+});
+
+// Uzantı her çalıştığında veriyi yükle
+chrome.runtime.onStartup.addListener(() => {
+  chrome.storage.local.get(['tabMuteStatus'], (result) => {
+    tabMuteStatus = result.tabMuteStatus || {};
   });
 });
 
