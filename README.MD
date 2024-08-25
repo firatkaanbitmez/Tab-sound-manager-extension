@@ -1,6 +1,6 @@
 # Tab Sound Manager
 
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Tab%20Sound%20Manager-brightgreen?style=for-the-badge&logo=google-chrome)](https://chromewebstore.google.com/detail/tab-sound-manager/eemjdeojofepghfmendnefhijldggpom?authuser=0&hl=tr)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Color%20Picker-brightgreen?style=for-the-badge&logo=google-chrome)](https://chromewebstore.google.com/detail/color-picker/lefmceknabkjodbjeocajdfhnlelaedc?authuser=0&hl=tr)
 
 **Tab Sound Manager** is a simple yet effective Chrome extension designed to help you manage the sound settings of your browser tabs with ease. Whether you want to quickly mute a tab or unmute it, this extension provides a seamless experience with a single click.
 
